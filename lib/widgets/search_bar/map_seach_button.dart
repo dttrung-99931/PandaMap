@@ -11,29 +11,55 @@ class MapSearchButton extends StatefulWidget {
 
 class _MapSearchButtonState extends State<MapSearchButton> {
   OverlayEntry? _entry;
-
+  bool _isSearchBarShowing = false;
   @override
   Widget build(BuildContext context) {
-    return MapActionButton(
-      onPressed: () {
-        _entry = OverlayEntry(
-          builder: (context) {
-            return TapRegion(
-              onTapOutside: (event) {
-                _entry?.remove();
-              },
-              child: Material(child: MapSearchBar(
-                onWillPop: () async {
-                  _entry?.remove();
-                  return false;
-                },
-              )),
-            );
-          },
-        );
-        Overlay.of(context).insert(_entry!);
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isSearchBarShowing){
+          _hideSearchBar();
+          return false;
+        }
+        return true;
       },
-      icon: Icons.search_outlined,
+      child: MapActionButton(
+        isVisible: !_isSearchBarShowing,
+        onPressed: () {
+          _entry = OverlayEntry(
+            builder: (context) {
+              return Stack(
+                children: [
+                  Positioned.fill(child: GestureDetector(
+                    onTap: () {
+                      _hideSearchBar();
+                    },
+                  )),
+                  const SafeArea(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: MapSearchBar(),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+          _showSearchBar(context);
+        },
+        icon: Icons.search_outlined,
+      ),
     );
+  }
+
+  void _showSearchBar(BuildContext context) {
+    Overlay.of(context).insert(_entry!);
+    _isSearchBarShowing = true;
+    setState(() {});
+  }
+
+  void _hideSearchBar() {
+    _entry?.remove();
+    _isSearchBarShowing = false;
+    setState(() {});
   }
 }

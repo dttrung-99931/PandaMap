@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MapSearchBarWidget extends StatelessWidget {
+class MapSearchBarWidget extends StatefulWidget {
   final String? navigateToScreenOnPressed;
   final bool autoFocus;
   final TextEditingController controller;
   final void Function(String? text)? onEditingComplete;
   final void Function(String? text)? onTextChanged;
   final String hint;
-
   MapSearchBarWidget({
     Key? key,
     TextEditingController? controller,
@@ -20,23 +19,43 @@ class MapSearchBarWidget extends StatelessWidget {
         super(key: key);
 
   @override
+  State<MapSearchBarWidget> createState() => _MapSearchBarWidgetState();
+}
+
+class _MapSearchBarWidgetState extends State<MapSearchBarWidget> {
+  late final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    if (widget.autoFocus){
+      _focusNode.requestFocus();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.8),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.black54),
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 1))
+          ]),
       alignment: Alignment.center,
       child: TextFormField(
-        controller: controller,
+        focusNode: _focusNode,
+        controller: widget.controller,
         onEditingComplete: () {
-          onEditingComplete?.call(controller.text);
+          widget.onEditingComplete?.call(widget.controller.text);
         },
-        onChanged: onTextChanged,
-        onTap: navigateToScreenOnPressed != null ? _onPressed : null,
-        autofocus: autoFocus,
-        readOnly: navigateToScreenOnPressed != null,
+        onChanged: widget.onTextChanged,
+        onTap: widget.navigateToScreenOnPressed != null ? _onPressed : null,
+        readOnly: widget.navigateToScreenOnPressed != null,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 8),
           border: const UnderlineInputBorder(
@@ -55,7 +74,7 @@ class MapSearchBarWidget extends StatelessWidget {
             minWidth: 36,
           ),
           isDense: true,
-          hintText: hint,
+          hintText: widget.hint,
           hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
         ),
         style: TextStyle(color: Colors.black.withOpacity(.9)),
