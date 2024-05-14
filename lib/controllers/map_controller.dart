@@ -4,16 +4,20 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:panda_map/map/models/location_model.dart';
-import 'package:panda_map/map/services/map_service.dart';
+import 'package:panda_map/models/map_location.dart';
+import 'package:panda_map/services/map_service.dart';
 
-class MapController extends ChangeNotifier {
-  final MapService _mapService = MapService();
+import 'loading_handle_mixin.dart';
+
+// Controler [GoogleMap]
+class MapController extends ChangeNotifier with LoadingHandleMixin {
+  MapController({MapService? service}) : _mapService = service ?? MapService();
+
+  final MapService _mapService;
   final Set<Marker> markers = <Marker>{};
   final Set<Circle> circles = <Circle>{};
   Completer<GoogleMapController> _controllerCompleter = Completer();
-  Future<GoogleMapController> get controllerFuture =>
-      _controllerCompleter.future;
+  Future<GoogleMapController> get controllerFuture => _controllerCompleter.future;
   int _currentMapTypeIndex = 1;
   int get currentMapTypeIndex => _currentMapTypeIndex;
   MapType get mapType => MapType.values[currentMapTypeIndex];
@@ -27,8 +31,7 @@ class MapController extends ChangeNotifier {
   }
 
   void addMarker(LatLng latlng) {
-    Marker marker =
-        Marker(markerId: MarkerId(latlng.toString()), position: latlng);
+    Marker marker = Marker(markerId: MarkerId(latlng.toString()), position: latlng);
     markers.add(marker);
     notifyListeners();
   }
@@ -56,7 +59,7 @@ class MapController extends ChangeNotifier {
   }
 
   Future<void> focusCurrentLocation({bool animate = true}) async {
-    LocationModel? location = await _mapService.getCurrentLocation();
+    MapLocation? location = await _mapService.getCurrentLocation();
     if (location != null) {
       focusMapTo(location);
     } else {
@@ -64,7 +67,7 @@ class MapController extends ChangeNotifier {
     }
   }
 
-  Future<void> focusMapTo(LocationModel location, {bool animate = true}) async {
+  Future<void> focusMapTo(MapLocation location, {bool animate = true}) async {
     return control((GoogleMapController controller) {
       CameraUpdate cameraUpdate = CameraUpdate.newLatLng(location.latLng);
       if (animate) {
