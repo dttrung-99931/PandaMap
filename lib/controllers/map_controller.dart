@@ -4,7 +4,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:panda_map/models/map_location.dart';
+import 'package:panda_map/controllers/models/map_location.dart';
 import 'package:panda_map/services/map_service.dart';
 
 import 'loading_handle_mixin.dart';

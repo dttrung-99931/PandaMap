@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:panda_map/controllers/map_access_controller.dart';
-import 'package:panda_map/models/map_search_result.dart';
+import 'package:panda_map/controllers/models/map_search_result.dart';
 import 'package:panda_map/widgets/search_bar/map_search_bar_widget.dart';
 
 class MapSearchBar extends StatefulWidget {
@@ -25,6 +25,7 @@ class _MapSearchBarState extends State<MapSearchBar> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
           child: MapSearchBarWidget(
+            hint: 'Nhập tìm địa chỉ',
             onEditingComplete: (String? text) {
               if (text != null && text.isNotEmpty){
                 _controller.searchLocations(text);

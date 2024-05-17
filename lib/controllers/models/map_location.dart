@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_place/google_place.dart';
 import 'package:location_platform_interface/location_platform_interface.dart';
+import 'package:panda_map/services/dtos/search_result_dto.dart';
 
 class MapLocation {
   MapLocation({
@@ -16,7 +16,7 @@ class MapLocation {
     return MapLocation(lat: locationData.latitude!, long: locationData.longitude!);
   }
 
-  static MapLocation fromSearchLocation(Location locationData) {
-    return MapLocation(lat: locationData.lat!, long: locationData.lng!);
+  static MapLocation fromSearchLocation(SearchResultDto locationData) {
+    return MapLocation(lat: 100, long: 100);
   }
 }

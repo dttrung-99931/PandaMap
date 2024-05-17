@@ -5,7 +5,7 @@ import 'package:panda_map/widgets/search_bar/map_seach_button.dart';
 
 Future<void> main() async {
   await PandaMap.init(
-    options: const MapOptions(googleMapAPIKey: 'AIzaSyAOzsbuIydODWyP95r8WNQDejFPzmBv944'),
+    options: const MapOptions(googleMapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4'),
   );
   runApp(const PandaMapDemoApp());
 }

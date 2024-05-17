@@ -1,10 +1,11 @@
 import 'dart:developer';
 
-import 'package:google_place/google_place.dart';
+import 'package:dio/dio.dart';
 import 'package:location/location.dart' as location;
 import 'package:location/location.dart';
-import 'package:panda_map/models/map_location.dart';
+import 'package:panda_map/controllers/models/map_location.dart';
 import 'package:panda_map/panda_map.dart';
+import 'package:panda_map/services/dtos/search_result_dto.dart';
 
 class MapService {
   MapService._();
@@ -13,12 +14,26 @@ class MapService {
     return _instance ??= MapService._();
   }
 
+  static const String googleMapSearchUrl = 'https://places.googleapis.com/v1/places:searchText';
   final location.Location _location = location.Location();
-  late final GooglePlace _googlePlace = GooglePlace(PandaMap.options.googleMapAPIKey);
+  late final Dio _httpClient = Dio(
+    BaseOptions(
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': PandaMap.options.googleMapAPIKey,
+        'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.priceLevel',
+      }
+    )
+  );
 
-  Future<List<SearchResult>> searchLocations(String text) async {
-    TextSearchResponse? result = await _googlePlace.search.getTextSearch(text);
-    return result?.results ?? [];
+  Future<List<SearchResultDto>> searchLocations(String text) async {
+    Response res = await _httpClient.post(googleMapSearchUrl,
+      data: {
+          'textQuery': text
+      },
+    );
+    log(res.data);
+    return [];
   }
 
   Future<MapLocation?> getCurrentLocation() async {
