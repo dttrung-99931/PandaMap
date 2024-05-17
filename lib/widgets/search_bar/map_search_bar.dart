@@ -1,85 +1,101 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:panda_map/widgets/loading_widget.dart';
 
-import 'package:panda_map/controllers/map_access_controller.dart';
-import 'package:panda_map/controllers/models/map_search_result.dart';
-import 'package:panda_map/widgets/search_bar/map_search_bar_widget.dart';
-
-class MapSearchBar extends StatefulWidget {
-  const MapSearchBar({
-    Key? key
-  }) : super(key: key);
+class MapSearchBarWidget extends StatefulWidget {
+  final String? navigateToScreenOnPressed;
+  final bool autoFocus;
+  final TextEditingController controller;
+  final void Function(String? text)? onEditingComplete;
+  final void Function(String? text)? onTextChanged;
+  final String hint;
+  final bool showLoading;
+  MapSearchBarWidget({
+    Key? key,
+    TextEditingController? controller,
+    this.navigateToScreenOnPressed,
+    this.autoFocus = false,
+    this.onEditingComplete,
+    this.onTextChanged,
+    this.hint = 'Nhập....',
+    this.showLoading = false,
+  })  : controller = controller ?? TextEditingController(),
+        super(key: key);
 
   @override
-  State<MapSearchBar> createState() => _MapSearchBarState();
+  State<MapSearchBarWidget> createState() => _MapSearchBarWidgetState();
 }
 
-class _MapSearchBarState extends State<MapSearchBar> {
-  final MapAccessController _controller = MapAccessController();
+class _MapSearchBarWidgetState extends State<MapSearchBarWidget> {
+  late final FocusNode _focusNode = FocusNode();
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-          child: MapSearchBarWidget(
-            hint: 'Nhập tìm địa chỉ',
-            onEditingComplete: (String? text) {
-              if (text != null && text.isNotEmpty){
-                _controller.searchLocations(text);
-              }
-            },
-            autoFocus: true,
-          ),
-        ),
-        ValueListenableBuilder(
-          valueListenable: _controller.searchResultsNotifier,
-          builder: (_, List<MapSearchResult> searchLocations, __) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: searchLocations.length,
-              itemBuilder: (context, index) {
-                MapSearchResult location = searchLocations[index];
-                return SearchLocationItem(location: location);
-              },
-            );
-          },
-        )
-      ],
-    );
+  void initState() {
+    if (widget.autoFocus) {
+      _focusNode.requestFocus();
+    }
+    super.initState();
   }
-}
-
-class SearchLocationItem extends StatelessWidget {
-  const SearchLocationItem({
-    super.key,
-    required this.location,
-  });
-
-  final MapSearchResult location;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-        padding: const EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: 12.0,
-        ),
-        child: Column(
-          children: [
-            Text(location.name),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(location.location.lat.toString()),
-                const SizedBox(height: 8),
-                Text(location.location.long.toString()),
-              ],
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 1))
+          ]),
+      alignment: Alignment.center,
+      child: TextFormField(
+        focusNode: _focusNode,
+        controller: widget.controller,
+        onEditingComplete: () {
+          widget.onEditingComplete?.call(widget.controller.text);
+          // Hide keyboard, dont't know why keyboard still showing when edtEdit compelte
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        onChanged: widget.onTextChanged,
+        onTap: widget.navigateToScreenOnPressed != null ? _onPressed : null,
+        readOnly: widget.navigateToScreenOnPressed != null,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          suffixIcon: widget.showLoading ? const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: LoadingWidget(center: false),
+          ) : null,
+          // set size for suffixIcon
+          suffixIconConstraints: widget.showLoading ? const BoxConstraints(
+            maxWidth: 24 + 8, // 8 padding right 
+            maxHeight: 24,
+          ) : null,
+          border: const UnderlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          prefixIcon: const Padding(
+            padding: EdgeInsets.only(left: 8),
+            child: Icon(
+              Icons.search,
+              size: 20,
+              color: Colors.black45,
             ),
-          ],
-        ));
+          ),
+          prefixIconConstraints: const BoxConstraints(
+            maxWidth: 36,
+            minWidth: 36,
+          ),
+          isDense: true,
+          hintText: widget.hint,
+          hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        ),
+        style: TextStyle(color: Colors.black.withOpacity(.9)),
+        textAlignVertical: TextAlignVertical.center,
+      ),
+    );
   }
+
+  void _onPressed() {}
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:panda_map/widgets/map_action_button.dart';
-import 'package:panda_map/widgets/search_bar/map_search_bar.dart';
+import 'package:panda_map/widgets/search_bar/map_search.dart';
 
 class MapSearchButton extends StatefulWidget {
   const MapSearchButton({super.key});
@@ -37,7 +37,7 @@ class _MapSearchButtonState extends State<MapSearchButton> {
                   const SafeArea(
                     child: Material(
                       color: Colors.transparent,
-                      child: MapSearchBar(),
+                      child: MapSearch(),
                     ),
                   ),
                 ],

@@ -5,7 +5,7 @@ import 'package:location/location.dart' as location;
 import 'package:location/location.dart';
 import 'package:panda_map/controllers/models/map_location.dart';
 import 'package:panda_map/panda_map.dart';
-import 'package:panda_map/services/dtos/search_result_dto.dart';
+import 'package:panda_map/services/dtos/map_search_result_dto.dart';
 
 class MapService {
   MapService._();
@@ -25,15 +25,15 @@ class MapService {
       }
     )
   );
-
-  Future<List<SearchResultDto>> searchLocations(String text) async {
+  
+  Future<MapSearchResultDto> searchLocations(String text) async {
     Response res = await _httpClient.post(googleMapSearchUrl,
       data: {
           'textQuery': text
       },
     );
-    log(res.data);
-    return [];
+    Map<String, dynamic> data = res.data;
+    return MapSearchResultDto.fromMap(data);
   }
 
   Future<MapLocation?> getCurrentLocation() async {

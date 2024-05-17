@@ -2,22 +2,31 @@
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({this.size = 20, this.color = Colors.teal, Key? key}) : super(key: key);
+  const LoadingWidget({
+    this.size = 20,
+    this.color = Colors.teal,
+    Key? key,
+    this.center = true,
+  }) : super(key: key);
 
   final double? size;
-  final Color? color;
+  final Color color;
+  final bool center;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox.square(
-        dimension: size,
-        child: CircularProgressIndicator(
-          color: color,
-          strokeWidth: 1.8,
-        ),
+    var loading = SizedBox.square(
+      dimension: size,
+      child: CircularProgressIndicator(
+        color: color,
+        strokeWidth: 1.8,
       ),
     );
+    return center
+        ? Center(
+            child: loading,
+          )
+        : loading;
   }
 }
 
@@ -41,7 +50,9 @@ class LoadingNotifiierWidget extends StatelessWidget {
               return Positioned.fill(
                 child: AbsorbPointer(
                   absorbing: true,
-                  child: Container(color: Colors.black.withOpacity(.05), child: const LoadingWidget()),
+                  child: Container(
+                      color: Colors.black.withOpacity(.05),
+                      child: const LoadingWidget()),
                 ),
               );
             }
