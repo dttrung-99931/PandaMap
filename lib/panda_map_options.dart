@@ -4,10 +4,10 @@ class MapOptions {
   final String mapAPIKey;
   final PandaMapType mapType;
 
-  const MapOptions( {
+  MapOptions( {
     required this.mapAPIKey,
     required this.mapType,
-  });
+  }) : assert(mapAPIKey.isNotEmpty, 'Map api key must not be empty');
 }
 
 enum PandaMapType {
