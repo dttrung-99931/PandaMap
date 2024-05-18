@@ -1,9 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:panda_map/widgets/map_action_button.dart';
 import 'package:panda_map/widgets/search_bar/map_search.dart';
+import 'package:panda_map/widgets/search_bar/map_search_result_list.dart';
 
 class MapSearchButton extends StatefulWidget {
-  const MapSearchButton({super.key});
+  const MapSearchButton({
+    Key? key,
+    required this.onSelected,
+    this.hideOnSelected = true,
+  }) : super(key: key);
+  final OnPlaceSelected onSelected;
+  final bool hideOnSelected;
 
   @override
   State<MapSearchButton> createState() => _MapSearchButtonState();
@@ -34,10 +43,15 @@ class _MapSearchButtonState extends State<MapSearchButton> {
                       _hideSearchBar();
                     },
                   )),
-                  const SafeArea(
+                  SafeArea(
                     child: Material(
                       color: Colors.transparent,
-                      child: MapSearch(),
+                      child: MapSearch(onSelected: (place) {
+                        widget.onSelected(place);
+                        if (widget.hideOnSelected){
+                          _hideSearchBar();
+                        }
+                      },),
                     ),
                   ),
                 ],

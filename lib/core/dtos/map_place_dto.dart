@@ -1,20 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:panda_map/core/dtos/map_location_dto.dart';
+
 class MapPlaceDto {
   MapPlaceDto({
-    required this.displayName,
     required this.formattedAddress,
+    required this.displayName,
+    required this.location,
   });
 
   final String formattedAddress;
   final MapPlaceNameDto displayName;
+  final MapLocationDto location;
 
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'formattedAddress': formattedAddress,
       'displayName': displayName.toMap(),
+      'location': location.toMap(),
     };
   }
 
@@ -22,6 +27,7 @@ class MapPlaceDto {
     return MapPlaceDto(
       formattedAddress: map['formattedAddress'] as String,
       displayName: MapPlaceNameDto.fromMap(map['displayName'] as Map<String,dynamic>),
+      location: MapLocationDto.fromMap(map['location'] as Map<String,dynamic>),
     );
   }
 

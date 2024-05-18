@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:panda_map/core/models/map_place.dart';
 import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/panda_map_options.dart';
 import 'package:panda_map/panda_map_widget.dart';
@@ -47,10 +50,14 @@ class _MapScreenState extends State<MapScreen> {
           Positioned.fill(
             child: PandaMapWidget(),
           ),
-          const Positioned(
+          Positioned(
             top: 32,
             right: 16,
-            child: MapSearchButton(),
+            child: MapSearchButton(
+              onSelected: (MapPlace place) {
+                log(place.location.lat.toString());
+              },
+            ),
           ),
         ],
       ),

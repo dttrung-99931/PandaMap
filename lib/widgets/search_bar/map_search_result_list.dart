@@ -1,14 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:panda_map/core/models/map_search_result.dart';
+import 'package:panda_map/core/models/map_place.dart';
 
+ typedef OnPlaceSelected = Function(MapPlace place);
 class MapSearchResultList extends StatelessWidget {
   const MapSearchResultList(
     this.searchLocations, {
     super.key,
+    required this.onSelected,
   });
-  final List<MapPlace> searchLocations;
 
+  final List<MapPlace> searchLocations;
+  final OnPlaceSelected onSelected;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,8 +26,13 @@ class MapSearchResultList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: searchLocations.length,
         itemBuilder: (context, index) {
-          MapPlace location = searchLocations[index];
-          return SearchLocationItem(location: location);
+          MapPlace place = searchLocations[index];
+          return InkWell(
+            onTap: () {
+              onSelected(place);
+            },
+            child: SearchLocationItem(location: place),
+          );
         },
       ),
     );
