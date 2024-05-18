@@ -11,13 +11,15 @@ import 'package:panda_map/core/services/map_service.dart';
 
 // Controler [GoogleMap]
 class GooglePandaMapController extends PandaMapController {
-  GooglePandaMapController({MapService? service}) : _mapService = service ?? MapService();
+  GooglePandaMapController({MapService? service})
+      : _mapService = service ?? MapService();
 
   final MapService _mapService;
   final Set<Marker> markers = <Marker>{};
   final Set<Circle> circles = <Circle>{};
   Completer<GoogleMapController> _controllerCompleter = Completer();
-  Future<GoogleMapController> get controllerFuture => _controllerCompleter.future;
+  Future<GoogleMapController> get controllerFuture =>
+      _controllerCompleter.future;
   int _currentMapTypeIndex = 1;
   int get currentMapTypeIndex => _currentMapTypeIndex;
   MapType get mapType => MapType.values[currentMapTypeIndex];
@@ -33,7 +35,9 @@ class GooglePandaMapController extends PandaMapController {
 
   @override
   void addMarker(MapLatLng latlng) {
-    Marker marker = Marker(markerId: MarkerId(latlng.toString()), position: latlng.toGoogleLatLng());
+    Marker marker = Marker(
+        markerId: MarkerId(latlng.toString()),
+        position: latlng.toGoogleLatLng(),);
     markers.add(marker);
     notifyListeners();
   }
@@ -58,7 +62,6 @@ class GooglePandaMapController extends PandaMapController {
     }
     _controllerCompleter.complete(controller);
     focusCurrentLocation(animate: false);
-    notifyListeners();
   }
 
   @override
@@ -90,13 +93,13 @@ class GooglePandaMapController extends PandaMapController {
 }
 
 extension ToGoogleLatLng on MapLatLng {
-  LatLng toGoogleLatLng(){
+  LatLng toGoogleLatLng() {
     return LatLng(lat, lng);
   }
 }
 
 extension ToMapLatLng on LatLng {
-  MapLatLng toMapLatLng(){
+  MapLatLng toMapLatLng() {
     return MapLatLng(lat: latitude, lng: longitude);
   }
 }
