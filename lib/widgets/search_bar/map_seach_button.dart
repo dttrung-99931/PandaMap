@@ -25,7 +25,7 @@ class _MapSearchButtonState extends State<MapSearchButton> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_isSearchBarShowing){
+        if (_isSearchBarShowing) {
           _hideSearchBar();
           return false;
         }
@@ -46,12 +46,14 @@ class _MapSearchButtonState extends State<MapSearchButton> {
                   SafeArea(
                     child: Material(
                       color: Colors.transparent,
-                      child: MapSearch(onSelected: (place) {
-                        widget.onSelected(place);
-                        if (widget.hideOnSelected){
-                          _hideSearchBar();
-                        }
-                      },),
+                      child: MapSearch(
+                        onSelected: (place) {
+                          widget.onSelected(place);
+                          if (widget.hideOnSelected) {
+                            _hideSearchBar();
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -68,12 +70,18 @@ class _MapSearchButtonState extends State<MapSearchButton> {
   void _showSearchBar(BuildContext context) {
     Overlay.of(context).insert(_entry!);
     _isSearchBarShowing = true;
-    setState(() {});
+    _updateIfMounted();
   }
 
   void _hideSearchBar() {
     _entry?.remove();
     _isSearchBarShowing = false;
-    setState(() {});
+    _updateIfMounted();
+  }
+
+  void _updateIfMounted() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 }
