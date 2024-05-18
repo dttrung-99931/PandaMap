@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:panda_map/controllers/loading_handle_mixin.dart';
-import 'package:panda_map/controllers/models/map_search_result.dart';
-import 'package:panda_map/services/dtos/map_search_result_dto.dart';
-import 'package:panda_map/services/map_service.dart';
+import 'package:panda_map/core/controllers/loading_handle_mixin.dart';
+import 'package:panda_map/core/models/map_search_result.dart';
+import 'package:panda_map/panda_map.dart';
+import 'package:panda_map/core/dtos/map_search_result_dto.dart';
+import 'package:panda_map/core/services/map_api_service.dart';
+import 'package:panda_map/core/services/map_api_service_factory.dart';
 
 // Control map data access actions like searching, ..
 class MapAccessController with LoadingHandleMixin {
-  late final MapService _service = MapService();
+  late final MapAPIService _service = MapAPIServiceFactory.getMapAPI(PandaMap.options.mapType);
   ValueNotifier<MapSearchResult> searchResultNotifier = ValueNotifier(MapSearchResult.init);
   TextEditingController searchController = TextEditingController();
   

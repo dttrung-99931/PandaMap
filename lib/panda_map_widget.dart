@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:panda_map/controllers/map_controller.dart';
+import 'package:panda_map/controllers/google_panda_map_controller.dart';
+import 'package:panda_map/core/controllers/panda_map_controller.dart';
+import 'package:panda_map/core/controllers/panda_map_controller_factory.dart';
+import 'package:panda_map/maps/gogole_map_widget.dart';
+import 'package:panda_map/panda_map.dart';
+import 'package:panda_map/panda_map_options.dart';
 
 import 'widgets/map_action_button.dart';
 
@@ -21,12 +24,12 @@ class MapUIOptions {
 class PandaMapWidget extends StatelessWidget {
   PandaMapWidget({
     super.key,
-    MapController? controller,
     this.options = const MapUIOptions(),
-  }) : controller = controller ?? MapController();
+  });
 
-  static const _kVNPosition = CameraPosition(target: LatLng(10, 106), zoom: 16);
-  final MapController controller;
+  static const vnPosition = CameraPosition(target: LatLng(10, 106), zoom: 16);
+  late final PandaMapController controller =
+      PandaMapControllerFactory.getController(PandaMap.options.mapType);
   final MapUIOptions options;
 
   @override
@@ -37,24 +40,7 @@ class PandaMapWidget extends StatelessWidget {
           AnimatedBuilder(
             animation: controller,
             builder: (context, child) {
-              return GoogleMap(
-                mapType: controller.mapType,
-                zoomControlsEnabled: false,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                onMapCreated: controller.onMapCreated,
-                initialCameraPosition: PandaMapWidget._kVNPosition,
-                markers: controller.markers,
-                circles: controller.circles,
-                onTap: (latlng) {
-                  if (Random().nextInt(2) == 1) {
-                    controller.addMarker(latlng);
-                  } else {
-                    controller.addRandomCircle(latlng);
-                  }
-                },
-                compassEnabled: true,
-              );
+              return buildMap(PandaMap.options.mapType);
             },
           ),
           if (options.showMapLayerBtn)
@@ -78,5 +64,13 @@ class PandaMapWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget buildMap(PandaMapType mapType) {
+    switch (mapType) {
+      case PandaMapType.google:
+        return GoogleMapWidget(
+            controller: controller as GooglePandaMapController);
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:panda_map/services/dtos/map_place_dto.dart';
+import 'package:panda_map/core/dtos/map_place_dto.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class MapSearchResultDto {

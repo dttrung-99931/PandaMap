@@ -1,12 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class MapOptions {
-  /// Required when using Google Place api for seaching,..
-  final String googleMapAPIKey;
-
-  const MapOptions({
-    required this.googleMapAPIKey,
-  });
-}
+import 'package:panda_map/panda_map_options.dart';
 
 class PandaMap {
   static MapOptions get options {

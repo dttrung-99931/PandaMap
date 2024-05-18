@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:panda_map/panda_map.dart';
+import 'package:panda_map/panda_map_options.dart';
 import 'package:panda_map/panda_map_widget.dart';
 import 'package:panda_map/widgets/search_bar/map_seach_button.dart';
 
 Future<void> main() async {
   await PandaMap.init(
-    options: const MapOptions(googleMapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4'),
+    options: const MapOptions(
+      mapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4',
+      mapType: PandaMapType.google,
+    ),
   );
   runApp(const PandaMapDemoApp());
 }
