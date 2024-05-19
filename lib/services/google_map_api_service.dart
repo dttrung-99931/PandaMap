@@ -12,12 +12,10 @@ class GoogleMapAPIService implements MapAPIService {
   }
 
   /// new search API url
-  static const String searchAPIUrl =
-      'https://places.googleapis.com/v1/places:searchText';
+  static const String searchAPIUrl = 'https://places.googleapis.com/v1/places:searchText';
 
   /// Find place API url
-  static const String findPlaceAPIUrl =
-      'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
+  static const String findPlaceAPIUrl = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
 
   /// Http client for calling new Google Map APIs
   late final Dio _newAPIHttpClient = Dio(BaseOptions(headers: {
@@ -50,7 +48,7 @@ class GoogleMapAPIService implements MapAPIService {
       queryParameters: {
         'inputtype': 'textquery',
         'input': text,
-        'fields': 'formatted_address,geometry,name,address_components',
+        'fields': 'place_id,formatted_address,geometry,name',
       },
     );
     Map<String, dynamic> data = res.data;
