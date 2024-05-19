@@ -8,11 +8,13 @@ class MapPlaceDto {
     required this.formattedAddress,
     required this.displayName,
     required this.location,
+    required this.addressComponents,
   });
 
   final String formattedAddress;
   final MapPlaceNameDto displayName;
   final MapLocationDto location;
+  final List<MapAddressComponent> addressComponents;
 
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class MapPlaceDto {
       'formattedAddress': formattedAddress,
       'displayName': displayName.toMap(),
       'location': location.toMap(),
+      'addressComponents': addressComponents.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -28,6 +31,7 @@ class MapPlaceDto {
       formattedAddress: map['formattedAddress'] as String,
       displayName: MapPlaceNameDto.fromMap(map['displayName'] as Map<String,dynamic>),
       location: MapLocationDto.fromMap(map['location'] as Map<String,dynamic>),
+      addressComponents: List<MapAddressComponent>.from((map['addressComponents'] as List<dynamic>).map<MapAddressComponent>((x) => MapAddressComponent.fromMap(x as Map<String,dynamic>),),),
     );
   }
 
@@ -61,4 +65,35 @@ class MapPlaceNameDto {
   String toJson() => json.encode(toMap());
 
   factory MapPlaceNameDto.fromJson(String source) => MapPlaceNameDto.fromMap(json.decode(source) as Map<String, dynamic>);
+}
+
+class MapAddressComponent {
+  final String longName;
+  final String shortName;
+  final String type;
+  MapAddressComponent({
+    required this.longName,
+    required this.shortName,
+    required this.type,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'longName': longName,
+      'shortName': shortName,
+      'type': type,
+    };
+  }
+
+  factory MapAddressComponent.fromMap(Map<String, dynamic> map) {
+    return MapAddressComponent(
+      longName: map['longName'] as String,
+      shortName: map['shortName'] as String,
+      type: map['type'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory MapAddressComponent.fromJson(String source) => MapAddressComponent.fromMap(json.decode(source) as Map<String, dynamic>);
 }

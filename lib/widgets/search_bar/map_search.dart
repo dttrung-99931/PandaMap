@@ -7,9 +7,14 @@ import 'package:panda_map/widgets/not_found.dart';
 import 'package:panda_map/widgets/search_bar/map_search_bar.dart';
 import 'package:panda_map/widgets/search_bar/map_search_result_list.dart';
 
+typedef TextTransformer = String Function(String text);
 class MapSearch extends StatefulWidget {
-  const MapSearch({Key? key, required this.onSelected}) : super(key: key);
+  const MapSearch({Key? key, required this.onSelected, this.searchTextTransformer}) : super(key: key);
   final OnPlaceSelected onSelected;
+
+  /// Used to transform search text before sending controller
+  final TextTransformer? searchTextTransformer;
+
 
   @override
   State<MapSearch> createState() => _MapSearchState();
@@ -36,7 +41,10 @@ class _MapSearchState extends State<MapSearch> {
                 hint: 'Nhập tìm địa chỉ',
                 onEditingComplete: (String? text) {
                   if (text != null && text.isNotEmpty) {
-                    _controller.searchLocations(text);
+                    String searchText = widget.searchTextTransformer != null 
+                      ? widget.searchTextTransformer!(text)
+                      : text;
+                    _controller.findLocations(searchText);
                   }
                 },
                 autoFocus: true,

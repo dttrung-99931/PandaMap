@@ -17,6 +17,12 @@ class MapAccessController with LoadingHandleMixin {
       MapSearchResultDto result = await _service.searchLocations(text);
       searchResultNotifier.value = MapSearchResult.fromDto(result);
     });
-
+  }
+  
+  Future<void> findLocations(String address) async {
+    await load(() async {
+      MapSearchResultDto result = await _service.findLocations(address);
+      searchResultNotifier.value = MapSearchResult.fromDto(result);
+    });
   }
 }

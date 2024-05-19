@@ -7,8 +7,10 @@ class MapSearchDialog extends StatelessWidget {
   const MapSearchDialog({
     Key? key,
     required this.onSelected,
+    this.searchTextTransformer,
   }) : super(key: key);
   final Function(MapPlace place) onSelected;
+  final TextTransformer? searchTextTransformer;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,10 @@ class MapSearchDialog extends StatelessWidget {
       alignment: Alignment.topCenter,
       backgroundColor: Colors.transparent,
       insetPadding: EdgeInsets.zero,
-      child: MapSearch(onSelected: onSelected),
+      child: MapSearch(
+        onSelected: onSelected,
+        searchTextTransformer: searchTextTransformer,
+      ),
     );
   }
 }
