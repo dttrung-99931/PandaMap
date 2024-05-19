@@ -44,16 +44,13 @@ class _MapSearchButtonState extends State<MapSearchButton> {
                     },
                   )),
                   SafeArea(
-                    child: Material(
-                      color: Colors.transparent,
-                      child: MapSearch(
-                        onSelected: (place) {
-                          widget.onSelected(place);
-                          if (widget.hideOnSelected) {
-                            _hideSearchBar();
-                          }
-                        },
-                      ),
+                    child: MapSearch(
+                      onSelected: (place) {
+                        widget.onSelected(place);
+                        if (widget.hideOnSelected) {
+                          _hideSearchBar();
+                        }
+                      },
                     ),
                   ),
                 ],

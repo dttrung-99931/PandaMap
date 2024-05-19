@@ -18,7 +18,10 @@ class GoogleMapAPIService implements MapAPIService  {
       headers: {
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': PandaMap.options.mapAPIKey,
-        'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.priceLevel,places.location',
+        'X-Goog-FieldMask': 'places.displayName,'  
+          'places.formattedAddress,'
+          'places.priceLevel,'
+          'places.location,'
       }
     )
   );
