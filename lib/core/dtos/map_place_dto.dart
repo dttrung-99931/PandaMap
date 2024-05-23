@@ -5,11 +5,13 @@ import 'package:panda_map/core/dtos/map_location_dto.dart';
 
 class MapPlaceDto {
   MapPlaceDto({
+    required this.placeId,
     required this.formattedAddress,
     required this.displayName,
     required this.location,
   });
 
+  final String placeId;
   final String formattedAddress;
   final MapPlaceNameDto displayName;
   final MapLocationDto location;
@@ -17,6 +19,7 @@ class MapPlaceDto {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'placeId': placeId,
       'formattedAddress': formattedAddress,
       'displayName': displayName.toMap(),
       'location': location.toMap(),
@@ -25,6 +28,7 @@ class MapPlaceDto {
 
   factory MapPlaceDto.fromMap(Map<String, dynamic> map) {
     return MapPlaceDto(
+      placeId: map['placeId'] as String,
       formattedAddress: map['formattedAddress'] as String,
       displayName: MapPlaceNameDto.fromMap(map['displayName'] as Map<String,dynamic>),
       location: MapLocationDto.fromMap(map['location'] as Map<String,dynamic>),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:location/location.dart' as location;
+import 'package:panda_map/core/dtos/map_place_detail_dto.dart';
 import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/core/dtos/map_search_result_dto.dart';
 import 'package:panda_map/core/services/map_api_service.dart';
@@ -13,6 +14,7 @@ class GoogleMapAPIService implements MapAPIService {
 
   /// new search API url
   static const String searchAPIUrl = 'https://places.googleapis.com/v1/places:searchText';
+  static const String placeDetailAPIUrl = 'https://places.googleapis.com/v1/places/';
 
   /// Find place API url
   static const String findPlaceAPIUrl = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
@@ -59,6 +61,7 @@ class GoogleMapAPIService implements MapAPIService {
       'places': (data['candidates'] as List<dynamic>)
           .map(
             (place) => {
+              'placeId': place['place_id'],
               'formattedAddress': place['formatted_address'],
               'displayName': {'languageCode': '', 'text': place['name']},
               'location': {
@@ -70,5 +73,17 @@ class GoogleMapAPIService implements MapAPIService {
           .toList()
     };
     return MapSearchResultDto.fromMap(searchConverted);
+  }
+
+  @override
+  Future<MapPlaceDetailDto> getPlaceDetail(String placeId) async {
+    Response res = await _newAPIHttpClient.post(placeDetailAPIUrl + placeId,
+        options: Options(headers: {
+          'X-Goog-FieldMask': 'addressComponents,'
+              'id'
+              'formattedAddress'
+        }));
+    Map<String, dynamic> data = res.data;
+    return MapPlaceDetailDto.fromMap(data);
   }
 }
