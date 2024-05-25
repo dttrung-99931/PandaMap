@@ -8,6 +8,7 @@ import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/services/map_service.dart';
+import 'package:panda_map/panda_map_options.dart';
 
 // Controler [GoogleMap]
 class GooglePandaMapController extends PandaMapController {
@@ -89,6 +90,10 @@ class GooglePandaMapController extends PandaMapController {
   Future<void> control(Function(GoogleMapController controller) action) async {
     GoogleMapController controller = await controllerFuture;
     action(controller);
+  }
+
+  @override
+  Future<void> init(MapOptions options) async {
   }
 }
 

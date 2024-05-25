@@ -13,6 +13,10 @@ Future<void> main() async {
       mapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4',
       mapType: PandaMapType.google,
     ),
+    // options: MapOptions(
+    //   mapAPIKey: '', // public map box key
+    //   mapType: PandaMapType.mapBox,
+    // ),
   );
   runApp(const PandaMapDemoApp());
 }

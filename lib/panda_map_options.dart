@@ -1,6 +1,8 @@
 
 class MapOptions {
-  /// Required when using Google Place api for seaching,..
+  /// map API key is:
+  /// - gogole map api key
+  /// - map box public token 
   final String mapAPIKey;
   final PandaMapType mapType;
 
@@ -12,6 +14,7 @@ class MapOptions {
 
 enum PandaMapType {
   google, 
+  mapBox, 
   // heremap  // TODO:
 }
 

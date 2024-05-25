@@ -5,6 +5,7 @@ import 'package:panda_map/controllers/google_panda_map_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller_factory.dart';
 import 'package:panda_map/maps/gogole_map_widget.dart';
+import 'package:panda_map/maps/map_box_widget.dart';
 import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/panda_map_options.dart';
 
@@ -71,6 +72,8 @@ class PandaMapWidget extends StatelessWidget {
       case PandaMapType.google:
         return GoogleMapWidget(
             controller: controller as GooglePandaMapController);
+      case PandaMapType.mapBox:
+        return MapBoxWidget(controller: controller as dynamic);
     }
   }
 }
