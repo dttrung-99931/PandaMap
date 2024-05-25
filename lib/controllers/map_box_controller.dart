@@ -8,6 +8,7 @@ import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/services/map_service.dart';
+import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/panda_map_options.dart' as panda_map;
 
 // Controler [GoogleMap]
@@ -96,6 +97,7 @@ class MapBoxController extends PandaMapController {
 
   @override
   Future<void> init(panda_map.MapOptions options) async {
+    MapboxOptions.setAccessToken(PandaMap.options.mapAPIKey);
   }
 }
 

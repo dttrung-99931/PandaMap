@@ -15,8 +15,8 @@ class MapBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MapWidget(
-      resourceOptions: ResourceOptions(
-        accessToken: PandaMap.options.mapAPIKey,
+      mapOptions: MapOptions(
+        pixelRatio: 1,
       ),
       cameraOptions: CameraOptions(),
       onMapCreated: controller.onMapCreated,
