@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:panda_map/core/controllers/panda_map_controller_factory.dart';
 import 'package:panda_map/panda_map_options.dart';
 
 class PandaMap {
@@ -12,5 +13,6 @@ class PandaMap {
   static MapOptions? _options;
   static Future<void> init({required MapOptions options}) async {
     _options = options;
+    await PandaMapControllerFactory.getController(options.mapType).init(options);
   }
 }

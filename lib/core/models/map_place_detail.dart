@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:panda_map/core/dtos/map_location_dto.dart';
-
 class MapPlaceDetail {
   final String text;
   final String? languageCode;

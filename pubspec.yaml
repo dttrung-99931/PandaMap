@@ -15,10 +15,15 @@ dependencies:
   location: ^6.0.2
   dio: ^5.4.3+1 # for call google map API
   mapbox_maps_flutter: ^1.1.0
-
+  here_sdk:
+    path: plugins/heresdk-explore-flutter
+  flutter_dotenv: ^5.0.2
+   
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
 
 flutter:
+  assets:
+    - packages/panda_map/assets/current_position.svg

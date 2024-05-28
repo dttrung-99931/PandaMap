@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:panda_map/core/dtos/map_address_component_dto.dart';
 import 'package:panda_map/core/dtos/map_location_dto.dart';
 
 class MapPlaceDto {
@@ -9,12 +10,14 @@ class MapPlaceDto {
     required this.formattedAddress,
     required this.displayName,
     required this.location,
+    this.addressComponent, 
   });
 
   final String placeId;
   final String formattedAddress;
   final MapPlaceNameDto displayName;
   final MapLocationDto location;
+  final MapAddressComponentlDto? addressComponent;
 
 
   Map<String, dynamic> toMap() {
@@ -23,6 +26,7 @@ class MapPlaceDto {
       'formattedAddress': formattedAddress,
       'displayName': displayName.toMap(),
       'location': location.toMap(),
+      'addressComponent': addressComponent?.toMap(),
     };
   }
 
@@ -32,6 +36,7 @@ class MapPlaceDto {
       formattedAddress: map['formattedAddress'] as String,
       displayName: MapPlaceNameDto.fromMap(map['displayName'] as Map<String,dynamic>),
       location: MapLocationDto.fromMap(map['location'] as Map<String,dynamic>),
+      addressComponent: map['addressComponent'] != null ? MapAddressComponentlDto.fromMap(map['addressComponent'] as Map<String,dynamic>) : null,
     );
   }
 

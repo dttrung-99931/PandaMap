@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:panda_map/controllers/google_panda_map_controller.dart';
+import 'package:panda_map/controllers/heremap/here_panda_map_controller.dart';
+import 'package:panda_map/controllers/map_box_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller_factory.dart';
 import 'package:panda_map/maps/gogole_map_widget.dart';
+import 'package:panda_map/maps/here_map_widget.dart';
 import 'package:panda_map/maps/map_box_widget.dart';
 import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/panda_map_options.dart';
@@ -73,7 +76,9 @@ class PandaMapWidget extends StatelessWidget {
         return GoogleMapWidget(
             controller: controller as GooglePandaMapController);
       case PandaMapType.mapBox:
-        return MapBoxWidget(controller: controller as dynamic);
+        return MapBoxWidget(controller: controller as MapBoxController);
+      case PandaMapType.heremap:
+        return HereMapWidget(controller: controller as HerePandaMapController);
     }
   }
 }

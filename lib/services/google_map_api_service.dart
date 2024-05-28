@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:location/location.dart' as location;
 import 'package:panda_map/core/dtos/map_place_detail_dto.dart';
-import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/core/dtos/map_search_result_dto.dart';
 import 'package:panda_map/core/services/map_api_service.dart';
+import 'package:panda_map/panda_map.dart';
 
 class GoogleMapAPIService implements MapAPIService {
   GoogleMapAPIService._();

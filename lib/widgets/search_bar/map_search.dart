@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:panda_map/core/controllers/map_access_controller.dart';
-import 'package:panda_map/core/models/map_place.dart';
 import 'package:panda_map/core/models/map_search_result.dart';
 import 'package:panda_map/widgets/not_found.dart';
 import 'package:panda_map/widgets/search_bar/map_search_bar.dart';
@@ -9,7 +8,7 @@ import 'package:panda_map/widgets/search_bar/map_search_result_list.dart';
 
 typedef TextTransformer = String Function(String text);
 class MapSearch extends StatefulWidget {
-  const MapSearch({Key? key, required this.onSelected, this.searchTextTransformer}) : super(key: key);
+  const MapSearch({super.key, required this.onSelected, this.searchTextTransformer});
   final OnPlaceSelected onSelected;
 
   /// Used to transform search text before sending controller

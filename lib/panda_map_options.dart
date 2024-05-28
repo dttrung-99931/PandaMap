@@ -4,18 +4,24 @@ class MapOptions {
   /// - gogole map api key
   /// - map box public token 
   final String mapAPIKey;
+  /// Only used for [MapType.heremap]
+  final String mapAPIKeyId;
   final PandaMapType mapType;
 
   MapOptions( {
     required this.mapAPIKey,
     required this.mapType,
-  }) : assert(mapAPIKey.isNotEmpty, 'Map api key must not be empty');
+    this.mapAPIKeyId = '', 
+  }) {
+     assert(mapAPIKey.isNotEmpty, 'Map api key must not be empty');
+     assert(mapType == PandaMapType.heremap && mapAPIKeyId.isNotEmpty, 'Heremap requried mapAPIKeyId');
+  }
 }
 
 enum PandaMapType {
   google, 
   mapBox, 
-  // heremap  // TODO:
+  heremap,
 }
 
 

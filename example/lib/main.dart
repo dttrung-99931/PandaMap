@@ -9,10 +9,20 @@ import 'package:panda_map/widgets/search_bar/map_seach_button.dart';
 
 Future<void> main() async {
   await PandaMap.init(
+    // Here map
     options: MapOptions(
-      mapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4',
-      mapType: PandaMapType.google,
+      mapAPIKey: 'bb6rs_Rbb7Vz0qOXSaF_CnVL7Z3rJ53N4uJ8-fUjEM-TBSGPU6hUsWxAocMuZ1cB57oJ_v8QaXpdWEmKVCgNFg',
+      mapAPIKeyId: 'GWunhRPgdFdBJcKsfrCaqg',
+      mapType: PandaMapType.heremap,
     ),
+
+    // Google map
+    // options: MapOptions(
+    //   mapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4',
+    //   mapType: PandaMapType.google,
+    // ),
+
+    // MapBox
     // options: MapOptions(
     //   mapAPIKey: '', // public map box key
     //   mapType: PandaMapType.mapBox,
