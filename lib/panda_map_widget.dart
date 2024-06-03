@@ -1,16 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:panda_map/controllers/google_panda_map_controller.dart';
-import 'package:panda_map/controllers/heremap/here_panda_map_controller.dart';
-import 'package:panda_map/controllers/map_box_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
-import 'package:panda_map/core/controllers/panda_map_controller_factory.dart';
-import 'package:panda_map/maps/gogole_map_widget.dart';
-import 'package:panda_map/maps/here_map_widget.dart';
-import 'package:panda_map/maps/map_box_widget.dart';
-import 'package:panda_map/panda_map.dart';
-import 'package:panda_map/panda_map_options.dart';
+import 'package:panda_map/panda_map_plugin.dart';
 
 import 'widgets/map_action_button.dart';
 
@@ -31,9 +22,7 @@ class PandaMapWidget extends StatelessWidget {
     this.options = const MapUIOptions(),
   });
 
-  static const vnPosition = CameraPosition(target: LatLng(10, 106), zoom: 16);
-  late final PandaMapController controller =
-      PandaMapControllerFactory.getController(PandaMap.options.mapType);
+  late final PandaMapController controller = PandaMapPlugin.controller;
   final MapUIOptions options;
 
   @override
@@ -44,7 +33,7 @@ class PandaMapWidget extends StatelessWidget {
           AnimatedBuilder(
             animation: controller,
             builder: (context, child) {
-              return buildMap(PandaMap.options.mapType);
+              return PandaMapPlugin.pluggin.buildMap(context);
             },
           ),
           if (options.showMapLayerBtn)
@@ -68,17 +57,5 @@ class PandaMapWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget buildMap(PandaMapType mapType) {
-    switch (mapType) {
-      case PandaMapType.google:
-        return GoogleMapWidget(
-            controller: controller as GooglePandaMapController);
-      case PandaMapType.mapBox:
-        return MapBoxWidget(controller: controller as MapBoxController);
-      case PandaMapType.heremap:
-        return HereMapWidget(controller: controller as HerePandaMapController);
-    }
   }
 }

@@ -16,29 +16,9 @@ public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
-      flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_plugin_android_lifecycle, io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin", e);
-    }
-    try {
-      flutterEngine.getPlugins().add(new io.flutter.plugins.googlemaps.GoogleMapsPlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin google_maps_flutter_android, io.flutter.plugins.googlemaps.GoogleMapsPlugin", e);
-    }
-    try {
-      flutterEngine.getPlugins().add(new com.here.here_sdk.HereSdkPlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin here_sdk, com.here.here_sdk.HereSdkPlugin", e);
-    }
-    try {
       flutterEngine.getPlugins().add(new com.lyokone.location.LocationPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin location, com.lyokone.location.LocationPlugin", e);
-    }
-    try {
-      flutterEngine.getPlugins().add(new com.mapbox.maps.mapbox_maps.MapboxMapsPlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin mapbox_maps_flutter, com.mapbox.maps.mapbox_maps.MapboxMapsPlugin", e);
     }
   }
 }
