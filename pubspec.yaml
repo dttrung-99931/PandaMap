@@ -16,7 +16,7 @@ dependencies:
   dio: ^5.4.3+1 # for call google map API
   mapbox_maps_flutter: ^1.1.0
   here_sdk:
-    path: plugins/heresdk-explore-flutter
+    path: lib/plugins/heresdk-explore-flutter
   flutter_dotenv: ^5.0.2
    
 dev_dependencies:

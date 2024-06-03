@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class MapAddressComponentlDto {
+class MapAddressComponentDto {
   final String provinceOrCity;
   final String district;
   final String communeOrWard;
   final String streetAndHouseNum;
-  MapAddressComponentlDto({
+  MapAddressComponentDto({
     required this.provinceOrCity,
     required this.district,
     required this.communeOrWard,
@@ -22,8 +22,8 @@ class MapAddressComponentlDto {
     };
   }
 
-  factory MapAddressComponentlDto.fromMap(Map<String, dynamic> map) {
-    return MapAddressComponentlDto(
+  factory MapAddressComponentDto.fromMap(Map<String, dynamic> map) {
+    return MapAddressComponentDto(
       provinceOrCity: map['provinceOrCity'] as String,
       district: map['district'] as String,
       communeOrWard: map['communeOrWard'] as String,
@@ -33,5 +33,5 @@ class MapAddressComponentlDto {
 
   String toJson() => json.encode(toMap());
 
-  factory MapAddressComponentlDto.fromJson(String source) => MapAddressComponentlDto.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MapAddressComponentDto.fromJson(String source) => MapAddressComponentDto.fromMap(json.decode(source) as Map<String, dynamic>);
 }

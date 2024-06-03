@@ -17,7 +17,7 @@ class MapPlaceDto {
   final String formattedAddress;
   final MapPlaceNameDto displayName;
   final MapLocationDto location;
-  final MapAddressComponentlDto? addressComponent;
+  final MapAddressComponentDto? addressComponent;
 
 
   Map<String, dynamic> toMap() {
@@ -36,7 +36,7 @@ class MapPlaceDto {
       formattedAddress: map['formattedAddress'] as String,
       displayName: MapPlaceNameDto.fromMap(map['displayName'] as Map<String,dynamic>),
       location: MapLocationDto.fromMap(map['location'] as Map<String,dynamic>),
-      addressComponent: map['addressComponent'] != null ? MapAddressComponentlDto.fromMap(map['addressComponent'] as Map<String,dynamic>) : null,
+      addressComponent: map['addressComponent'] != null ? MapAddressComponentDto.fromMap(map['addressComponent'] as Map<String,dynamic>) : null,
     );
   }
 
@@ -72,33 +72,33 @@ class MapPlaceNameDto {
   factory MapPlaceNameDto.fromJson(String source) => MapPlaceNameDto.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
-class MapAddressComponent {
-  final String longName;
-  final String shortName;
-  final String type;
-  MapAddressComponent({
-    required this.longName,
-    required this.shortName,
-    required this.type,
-  });
+// class MapAddressComponent {
+//   final String longName;
+//   final String shortName;
+//   final String type;
+//   MapAddressComponent({
+//     required this.longName,
+//     required this.shortName,
+//     required this.type,
+//   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'longName': longName,
-      'shortName': shortName,
-      'type': type,
-    };
-  }
+//   Map<String, dynamic> toMap() {
+//     return <String, dynamic>{
+//       'longName': longName,
+//       'shortName': shortName,
+//       'type': type,
+//     };
+//   }
 
-  factory MapAddressComponent.fromMap(Map<String, dynamic> map) {
-    return MapAddressComponent(
-      longName: map['longName'] as String,
-      shortName: map['shortName'] as String,
-      type: map['type'] as String,
-    );
-  }
+//   factory MapAddressComponent.fromMap(Map<String, dynamic> map) {
+//     return MapAddressComponent(
+//       longName: map['longName'] as String,
+//       shortName: map['shortName'] as String,
+//       type: map['type'] as String,
+//     );
+//   }
 
-  String toJson() => json.encode(toMap());
+//   String toJson() => json.encode(toMap());
 
-  factory MapAddressComponent.fromJson(String source) => MapAddressComponent.fromMap(json.decode(source) as Map<String, dynamic>);
-}
+//   factory MapAddressComponent.fromJson(String source) => MapAddressComponent.fromMap(json.decode(source) as Map<String, dynamic>);
+// }

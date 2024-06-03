@@ -53,7 +53,7 @@ class HereMapAPIService implements MapAPIService {
                   latitude: place.geoCoordinates?.latitude ?? -1,
                   longitude: place.geoCoordinates?.longitude ?? -1,
                 ),
-                addressComponent: MapAddressComponentlDto(
+                addressComponent: MapAddressComponentDto(
                   provinceOrCity: place.address.city,
                   district: place.address.district,
                   communeOrWard: place.address.city, // FIXME
@@ -69,6 +69,6 @@ class HereMapAPIService implements MapAPIService {
 
   @override
   Future<MapPlaceDetailDto> getPlaceDetail(String placeId) async {
-    throw 'Not implementerd';
+    throw 'Not implemented';
   }
 }
