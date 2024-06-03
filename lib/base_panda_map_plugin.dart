@@ -4,7 +4,7 @@ import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/services/map_api_service.dart';
 import 'package:panda_map/panda_map_options.dart';
 
-abstract class BasePandaMapPluggin {
+abstract class BasePandaMapPlugin {
   PandaMapController? _controller;
   MapOptions? _options;
   MapAPIService? _service;

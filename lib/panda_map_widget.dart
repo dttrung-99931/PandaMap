@@ -33,7 +33,7 @@ class PandaMapWidget extends StatelessWidget {
           AnimatedBuilder(
             animation: controller,
             builder: (context, child) {
-              return PandaMapPlugin.pluggin.buildMap(context);
+              return PandaMapPlugin.plugin.buildMap(context);
             },
           ),
           if (options.showMapLayerBtn)
