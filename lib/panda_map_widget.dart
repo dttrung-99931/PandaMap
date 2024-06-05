@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
-import 'package:panda_map/panda_map_plugin.dart';
+import 'package:panda_map/panda_map.dart';
 
 import 'widgets/map_action_button.dart';
 
@@ -22,7 +22,7 @@ class PandaMapWidget extends StatelessWidget {
     this.options = const MapUIOptions(),
   });
 
-  late final PandaMapController controller = PandaMapPlugin.controller;
+  late final PandaMapController controller = PandaMap.controller;
   final MapUIOptions options;
 
   @override
@@ -33,7 +33,7 @@ class PandaMapWidget extends StatelessWidget {
           AnimatedBuilder(
             animation: controller,
             builder: (context, child) {
-              return PandaMapPlugin.plugin.buildMap(context);
+              return PandaMap.plugin.buildMap(context);
             },
           ),
           if (options.showMapLayerBtn)

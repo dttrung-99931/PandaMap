@@ -1,25 +1,44 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/services/map_api_service.dart';
-import 'package:panda_map/base_panda_map_plugin.dart';
 import 'package:panda_map/panda_map_options.dart';
 
 abstract class PandaMapPlugin {
-  static BasePandaMapPlugin? _plugin;
-  static BasePandaMapPlugin get plugin {
-    if (_plugin == null) {
-      throw 'PandaMap is not set';
-    }
-    return _plugin!;
+  PandaMapPlugin({
+    required this.options,
+  });
+  final MapOptions options;
+  PandaMapController? _controller;
+  MapAPIService? _service;
+
+  PandaMapController get controller {
+    _checkInit();
+    return _controller!;
   }
 
-  static set plugin(value) => _plugin = value;
+  MapAPIService get service {
+    if (_service == null) {
+      throw 'PadaMapPlugg has not initialized';
+    }
+    return _service!;
+  }
 
-  static PandaMapController get controller => plugin.controller;
-  static MapAPIService get service => plugin.service;
-  static MapOptions get options => plugin.options;
+  PandaMapController getController();
 
-  static Future<void> init({required MapOptions options}) async {
-    await plugin.init(options: options);
+  MapAPIService getService();
+
+  Future<void> init() async {
+    _controller = getController();
+    _service = getService();
+    await controller.init(options);
+  }
+
+  Widget buildMap(BuildContext context);
+
+  void _checkInit() {
+    if (_controller == null) {
+      throw 'PadaMapPlugg has not initialized';
+    }
   }
 }
