@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
@@ -18,9 +19,20 @@ class LoadingWidget extends StatelessWidget {
     var loading = SizedBox.square(
       dimension: size,
       child: CircularProgressIndicator(
+        strokeWidth: 2,
         color: color,
-        strokeWidth: 1.8,
       ),
+      // TODO: Use spin kit fading
+      // child: SpinKitFadingCircle(
+      //   size: size,
+      //   itemBuilder: (BuildContext context, int index) {
+      //     return DecoratedBox(
+      //       decoration: BoxDecoration(
+      //         color: color,
+      //       ),
+      //     );
+      //   },
+      // ),
     );
     return center
         ? Center(
@@ -30,12 +42,12 @@ class LoadingWidget extends StatelessWidget {
   }
 }
 
-class LoadingNotifiierWidget extends StatelessWidget {
-  const LoadingNotifiierWidget({
-    Key? key,
+class LoadingListenerWidget extends StatelessWidget {
+  const LoadingListenerWidget({
+    super.key,
     required this.child,
     required this.isLoadingNotifier,
-  }) : super(key: key);
+  });
   final Widget child;
   final ValueNotifier<bool> isLoadingNotifier;
   @override
