@@ -18,21 +18,9 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var loading = SizedBox.square(
       dimension: size,
-      child: CircularProgressIndicator(
-        strokeWidth: 2,
+      child: SpinKitFadingCircle(
         color: color,
       ),
-      // TODO: Use spin kit fading
-      // child: SpinKitFadingCircle(
-      //   size: size,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     return DecoratedBox(
-      //       decoration: BoxDecoration(
-      //         color: color,
-      //       ),
-      //     );
-      //   },
-      // ),
     );
     return center
         ? Center(
@@ -42,8 +30,8 @@ class LoadingWidget extends StatelessWidget {
   }
 }
 
-class LoadingListenerWidget extends StatelessWidget {
-  const LoadingListenerWidget({
+class LoadingListener extends StatelessWidget {
+  const LoadingListener({
     super.key,
     required this.child,
     required this.isLoadingNotifier,
