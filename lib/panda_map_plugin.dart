@@ -24,17 +24,17 @@ abstract class PandaMapPlugin {
     return _service!;
   }
 
-  PandaMapController getController();
+  PandaMapController createController();
 
-  MapAPIService getService();
+  MapAPIService createService();
 
   Future<void> init() async {
-    _controller = getController();
-    _service = getService();
+    _controller = createController();
+    _service = createService();
     await controller.init(options);
   }
 
-  Widget buildMap(BuildContext context);
+  Widget buildMap(BuildContext context, PandaMapController controller);
 
   void _checkInit() {
     if (_controller == null) {
