@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
     this.size = 20,
     this.color = Colors.teal,
-    Key? key,
+    super.key,
     this.center = true,
-  }) : super(key: key);
+  });
 
   final double? size;
   final Color color;
@@ -18,8 +17,9 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var loading = SizedBox.square(
       dimension: size,
-      child: SpinKitFadingCircle(
+      child: CircularProgressIndicator(
         color: color,
+        strokeWidth: 2,
       ),
     );
     return center
