@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:location_platform_interface/location_platform_interface.dart';
+import 'package:panda_map/core/models/map_current_location.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/services/map_service.dart';
@@ -46,7 +47,12 @@ abstract class PandaMapController extends ChangeNotifier
 
   void addRandomCircle(MapLatLng latlng);
 
-  Future<void> focusCurrentLocation({bool animate = true});
+  /// Focus current location `currentLcoation` and move current lcoation indicator
+  /// If `currentLcoation` is null then handling to find out current location
+  Future<void> focusCurrentLocation({
+    MapCurrentLocation? currentLocation,
+    bool animate = true,
+  });
 
-  Future<void> focusMapTo(MapLocation location, {bool animate = true});
+  Future<void> focusLocation(MapLocation location, {bool animate = true});
 }

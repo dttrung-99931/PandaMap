@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:location/location.dart' as location;
 import 'package:location/location.dart';
-import 'package:panda_map/core/models/map_location.dart';
+import 'package:panda_map/core/models/map_current_location.dart';
 
 class MapService {
   MapService._();
@@ -14,7 +14,7 @@ class MapService {
   final location.Location _location = location.Location();
   Stream<LocationData> get onLocationChanged => _location.onLocationChanged;
 
-  Future<MapLocation?> getCurrentLocation() async {
+  Future<MapCurrentLocation?> getCurrentLocation() async {
     bool locationServiceEnabled = await _location.serviceEnabled();
     if (!locationServiceEnabled) {
       locationServiceEnabled = await _location.requestService();
@@ -37,6 +37,6 @@ class MapService {
     }
 
     LocationData locationData = await _location.getLocation();
-    return MapLocation.fromLocationData(locationData);
+    return MapCurrentLocation.fromLocationData(locationData);
   }
 }
