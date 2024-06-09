@@ -12,6 +12,7 @@ class MapService {
   }
 
   final location.Location _location = location.Location();
+  Stream<LocationData> get onLocationChanged => _location.onLocationChanged;
 
   Future<MapLocation?> getCurrentLocation() async {
     bool locationServiceEnabled = await _location.serviceEnabled();
@@ -23,9 +24,11 @@ class MapService {
       }
     }
 
-    bool locationPermissionGranted = await _location.hasPermission() == PermissionStatus.granted;
+    bool locationPermissionGranted =
+        await _location.hasPermission() == PermissionStatus.granted;
     if (!locationPermissionGranted) {
-      locationPermissionGranted = await _location.requestPermission() == PermissionStatus.granted;
+      locationPermissionGranted =
+          await _location.requestPermission() == PermissionStatus.granted;
 
       if (!locationPermissionGranted) {
         log('Error location service');
