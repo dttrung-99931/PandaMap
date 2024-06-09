@@ -31,7 +31,7 @@ abstract class PandaMapController extends ChangeNotifier
   @mustCallSuper
   Future<void> init(MapOptions options) async {
     initMap(options);
-    // addSubscription(mapService.onLocationChanged.listen(onLocationChanged));
+    addSubscription(mapService.onLocationChanged.listen(onLocationChanged));
   }
 
   /// Init specify map
