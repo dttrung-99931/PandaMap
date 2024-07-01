@@ -7,7 +7,7 @@ import 'package:panda_map/core/services/map_api_service.dart';
 
 // Control map data access actions like searching, ..
 class MapAccessController with LoadingHandleMixin {
-  late final MapAPIService _service = PandaMap.service;
+  late final MapAPIService _service = PandaMap.mapApiService;
   ValueNotifier<MapSearchResult> searchResultNotifier =
       ValueNotifier(MapSearchResult.init);
   TextEditingController searchController = TextEditingController();

@@ -5,25 +5,12 @@ import 'package:panda_map/panda_map.dart';
 
 import 'widgets/map_action_button.dart';
 
-class MapUIOptions {
-  final bool showCurrentPositionBtn;
-  final bool showMapLayerBtn;
-  final bool showSearchBar;
-  const MapUIOptions({
-    this.showCurrentPositionBtn = true,
-    this.showSearchBar = true,
-    this.showMapLayerBtn = false,
-  });
-}
-
 class PandaMapWidget extends StatelessWidget {
   PandaMapWidget({
     super.key,
-    this.options = const MapUIOptions(),
   });
 
   late final PandaMapController controller = PandaMap.controller;
-  final MapUIOptions options;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +23,7 @@ class PandaMapWidget extends StatelessWidget {
               return PandaMap.plugin.buildMap(context, PandaMap.controller);
             },
           ),
-          if (options.showMapLayerBtn)
+          if (PandaMap.uiOptions.showMapLayerBtn)
             Positioned(
               right: 16,
               top: 16,
@@ -45,7 +32,7 @@ class PandaMapWidget extends StatelessWidget {
                 onPressed: controller.changeMapType,
               ),
             ),
-          if (options.showCurrentPositionBtn)
+          if (PandaMap.uiOptions.showCurrentPositionBtn)
             Positioned(
               right: 16,
               bottom: 16,

@@ -5,6 +5,7 @@ import 'package:location_platform_interface/location_platform_interface.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
+import 'package:panda_map/core/models/map_polyline.dart';
 import 'package:panda_map/core/services/map_service.dart';
 import 'package:panda_map/panda_map_options.dart';
 import 'package:panda_map/widgets/disposable_mixin.dart';
@@ -46,6 +47,8 @@ abstract class PandaMapController extends ChangeNotifier
   void addMarker(MapLatLng latlng);
 
   void addRandomCircle(MapLatLng latlng);
+
+  void addMapPolyline(MapPolyline polyline);
 
   /// Focus current location `currentLcoation` and move current lcoation indicator
   /// If `currentLcoation` is null then handling to find out current location
