@@ -131,7 +131,14 @@ class LocationItem extends StatelessWidget {
         children: [
           _dot(),
           const SizedBox(width: 8),
-          Text(location.address, style: const TextStyle(fontSize: 14)),
+          Expanded(
+            child: Text(
+              location.address?.address ?? '',
+              style: const TextStyle(fontSize: 14),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ),
     );

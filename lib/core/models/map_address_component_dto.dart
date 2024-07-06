@@ -5,6 +5,10 @@ class MapAddressComponent {
   final String district;
   final String communeOrWard;
   final String streetAndHouseNum;
+  String get address {
+    return '$streetAndHouseNum $communeOrWard $district $provinceOrCity';
+  }
+
   MapAddressComponent({
     required this.provinceOrCity,
     required this.district,

@@ -33,5 +33,7 @@ class MapAddressComponentDto {
 
   String toJson() => json.encode(toMap());
 
-  factory MapAddressComponentDto.fromJson(String source) => MapAddressComponentDto.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MapAddressComponentDto.fromJson(String source) =>
+      MapAddressComponentDto.fromMap(
+          json.decode(source) as Map<String, dynamic>);
 }
