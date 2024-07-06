@@ -58,4 +58,7 @@ abstract class PandaMapController extends ChangeNotifier
   });
 
   Future<void> focusLocation(MapLocation location, {bool animate = true});
+
+  void zoomIn();
+  void zoomOut();
 }

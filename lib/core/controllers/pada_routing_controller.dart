@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/models/map_route.dart';
 
-abstract class PandaRoutingController {
+abstract class PandaRoutingController extends ChangeNotifier {
+  MapRoute? get currentRoute;
   Future<void> init();
   Future<MapRoute?> findRoute({
     required MapLocation start,
