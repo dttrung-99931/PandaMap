@@ -1,4 +1,4 @@
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:panda_map/core/models/map_location.dart';
 
 class MapCurrentLocation extends MapLocation {
@@ -9,11 +9,11 @@ class MapCurrentLocation extends MapLocation {
   });
   final double bearingDegrees;
 
-  factory MapCurrentLocation.fromLocationData(LocationData locationData) {
+  factory MapCurrentLocation.fromPosition(Position pos) {
     return MapCurrentLocation(
-      lat: locationData.latitude!,
-      long: locationData.longitude!,
-      bearingDegrees: locationData.heading!,
+      lat: pos.latitude,
+      long: pos.longitude,
+      bearingDegrees: pos.heading,
     );
   }
 }

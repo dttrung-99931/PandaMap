@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:location_platform_interface/location_platform_interface.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
@@ -27,7 +26,7 @@ abstract class PandaMapController extends ChangeNotifier
     super.dispose();
   }
 
-  void onLocationChanged(LocationData event);
+  void onLocationChanged(MapCurrentLocation location);
 
   /// Init
   @mustCallSuper

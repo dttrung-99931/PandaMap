@@ -1,42 +1,59 @@
+import 'dart:async';
 import 'dart:developer';
 
-import 'package:location/location.dart' as location;
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
 
 class MapService {
-  MapService._();
-  static MapService? _instance;
+  MapService._() {
+    Geolocator.getPositionStream().listen(
+      (Position position) {
+        _locationChangedController
+            .add(MapCurrentLocation.fromPosition(position));
+      },
+    );
+  }
   factory MapService() {
     return _instance ??= MapService._();
   }
+  static MapService? _instance;
 
-  final location.Location _location = location.Location();
-  Stream<LocationData> get onLocationChanged => _location.onLocationChanged;
+  Stream<MapCurrentLocation> get onLocationChanged {
+    return _locationChangedController.stream;
+  }
+
+  final _locationChangedController =
+      StreamController<MapCurrentLocation>.broadcast();
 
   Future<MapCurrentLocation?> getCurrentLocation() async {
-    bool locationServiceEnabled = await _location.serviceEnabled();
+    bool locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!locationServiceEnabled) {
-      locationServiceEnabled = await _location.requestService();
+      locationServiceEnabled = await Geolocator.openLocationSettings();
       if (!locationServiceEnabled) {
         log('Error location service');
         return null;
       }
     }
 
-    bool locationPermissionGranted =
-        await _location.hasPermission() == PermissionStatus.granted;
+    bool locationPermissionGranted = _isLocationPermissionEnabled(
+      await Geolocator.checkPermission(),
+    );
     if (!locationPermissionGranted) {
-      locationPermissionGranted =
-          await _location.requestPermission() == PermissionStatus.granted;
-
+      locationPermissionGranted = _isLocationPermissionEnabled(
+        await Geolocator.requestPermission(),
+      );
       if (!locationPermissionGranted) {
         log('Error location service');
         return null;
       }
     }
 
-    LocationData locationData = await _location.getLocation();
-    return MapCurrentLocation.fromLocationData(locationData);
+    Position locationData = await Geolocator.getCurrentPosition();
+    return MapCurrentLocation.fromPosition(locationData);
+  }
+
+  bool _isLocationPermissionEnabled(LocationPermission permission) {
+    return [LocationPermission.always, LocationPermission.whileInUse]
+        .contains(permission);
   }
 }
