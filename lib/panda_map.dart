@@ -26,6 +26,7 @@ abstract class PandaMap {
 
   static Future<void> initialize({required PandaMapPlugin plugin}) async {
     _plugin = plugin;
+    await mapService.init();
     await plugin.init();
   }
 }

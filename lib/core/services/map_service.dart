@@ -5,14 +5,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
 
 class MapService {
-  MapService._() {
-    Geolocator.getPositionStream().listen(
-      (Position position) {
-        _locationChangedController
-            .add(MapCurrentLocation.fromPosition(position));
-      },
-    );
-  }
+  MapService._();
+
   factory MapService() {
     return _instance ??= MapService._();
   }
@@ -25,13 +19,13 @@ class MapService {
   final _locationChangedController =
       StreamController<MapCurrentLocation>.broadcast();
 
-  Future<MapCurrentLocation?> getCurrentLocation() async {
+  Future<void> init() async {
     bool locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!locationServiceEnabled) {
       locationServiceEnabled = await Geolocator.openLocationSettings();
       if (!locationServiceEnabled) {
         log('Error location service');
-        return null;
+        return;
       }
     }
 
@@ -44,10 +38,19 @@ class MapService {
       );
       if (!locationPermissionGranted) {
         log('Error location service');
-        return null;
+        return;
       }
     }
 
+    Geolocator.getPositionStream().listen(
+      (Position position) {
+        _locationChangedController
+            .add(MapCurrentLocation.fromPosition(position));
+      },
+    );
+  }
+
+  Future<MapCurrentLocation?> getCurrentLocation() async {
     Position locationData = await Geolocator.getCurrentPosition();
     return MapCurrentLocation.fromPosition(locationData);
   }
