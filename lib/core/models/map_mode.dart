@@ -1,0 +1,4 @@
+enum MapMode {
+  normal,
+  navigation,
+}

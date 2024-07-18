@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:panda_map/core/controllers/pada_routing_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
+import 'package:panda_map/core/models/map_mode.dart';
 import 'package:panda_map/core/services/map_api_service.dart';
 import 'package:panda_map/panda_map_options.dart';
 import 'package:panda_map/panda_map_ui_options.dart';
+import 'package:panda_map/widgets/map/map_normal_overlay.dart';
 
 abstract class PandaMapPlugin {
   PandaMapPlugin({
@@ -51,6 +53,20 @@ abstract class PandaMapPlugin {
   }
 
   Widget buildMap(BuildContext context, PandaMapController controller);
+
+  Widget buildMapOverlay(BuildContext context, MapMode mode) {
+    switch (mode) {
+      case MapMode.normal:
+        return MapNormalOverlay(
+          routingController: routingController,
+          controller: controller,
+        );
+      case MapMode.navigation:
+        return const Center(
+          child: Text('Navigation ui not implemented'),
+        );
+    }
+  }
 
   void _checkInit() {
     if (_controller == null) {

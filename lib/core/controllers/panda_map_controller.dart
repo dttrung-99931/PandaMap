@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
+import 'package:panda_map/core/models/map_mode.dart';
 import 'package:panda_map/core/models/map_polyline.dart';
 import 'package:panda_map/core/services/map_service.dart';
 import 'package:panda_map/panda_map_options.dart';
@@ -19,6 +20,12 @@ abstract class PandaMapController extends ChangeNotifier
       MapLocation(lat: 10.816678822832658, long: 106.71402198972446);
 
   late final MapService mapService = MapService();
+
+  final ValueNotifier<MapMode> mode = ValueNotifier(MapMode.normal);
+
+  void changeMode(MapMode mode) {
+    this.mode.value = mode;
+  }
 
   @override
   void dispose() {
