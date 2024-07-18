@@ -42,7 +42,11 @@ class MapService {
       }
     }
 
-    Geolocator.getPositionStream().listen(
+    Geolocator.getPositionStream(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.bestForNavigation,
+      ),
+    ).listen(
       (Position position) {
         _locationChangedController
             .add(MapCurrentLocation.fromPosition(position));
