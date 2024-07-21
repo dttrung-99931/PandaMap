@@ -5,6 +5,7 @@ import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/models/map_route.dart';
 import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/utils/constants.dart';
+import 'package:panda_map/widgets/map/current_location_button.dart';
 import 'package:panda_map/widgets/map/route_locations.dart';
 import 'package:panda_map/widgets/map_action_button.dart';
 
@@ -64,10 +65,7 @@ class MapNormalOverlay extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               if (PandaMap.uiOptions.showCurrentPositionBtn)
-                MapActionButton(
-                  icon: Icons.location_searching_outlined,
-                  onPressed: controller.focusCurrentLocation,
-                ),
+                CurrentLocationButton(controller: controller),
             ],
           ),
         ),
