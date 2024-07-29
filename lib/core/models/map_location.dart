@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:panda_map/core/dtos/map_location_dto.dart';
 import 'package:panda_map/core/dtos/map_search_result_dto.dart';
 
@@ -15,5 +17,12 @@ class MapLocation {
 
   static MapLocation fromSearchLocation(MapSearchResultDto locationData) {
     return MapLocation(lat: 100, long: 100);
+  }
+
+  /// Return distance from this location to [other] location
+  /// Distance is calculated based 2-d coordinate system with latitude is x and longitue is y
+  double cooordinatorDistanceTo(MapLocation other) {
+    return sqrt((lat - other.lat) * (lat - other.lat) +
+        (long - other.long) * (long - other.long));
   }
 }

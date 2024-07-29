@@ -4,7 +4,7 @@ import 'package:panda_map/core/models/map_move_step.dart';
 import 'package:panda_map/core/models/map_polyline.dart';
 
 class MapRoute {
-  final MapPolyline polyline;
+  final MapPolylinePanda polyline;
   final List<MapAddressLocation> locations;
   final List<MapMoveStep> moveSteps;
   MapRoute({

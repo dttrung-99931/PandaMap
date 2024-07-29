@@ -1,0 +1,4 @@
+enum MapCurrentLocationStyle {
+  normal,
+  navigation,
+}

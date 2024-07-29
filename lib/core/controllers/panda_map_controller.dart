@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
+import 'package:panda_map/core/models/map_current_location_style.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/models/map_mode.dart';
@@ -23,6 +24,9 @@ abstract class PandaMapController extends ChangeNotifier
 
   final ValueNotifier<MapMode> mode = ValueNotifier(MapMode.normal);
 
+  Stream<MapCurrentLocation> get locationChangedStream =>
+      mapService.onLocationChanged;
+
   void changeMode(MapMode mode) {
     this.mode.value = mode;
   }
@@ -39,7 +43,7 @@ abstract class PandaMapController extends ChangeNotifier
   @mustCallSuper
   Future<void> init(MapOptions options) async {
     initMap(options);
-    addSubscription(mapService.onLocationChanged.listen(onLocationChanged));
+    addSubscription(locationChangedStream.listen(onLocationChanged));
   }
 
   /// Init specify map
@@ -54,7 +58,14 @@ abstract class PandaMapController extends ChangeNotifier
 
   void addRandomCircle(MapLatLng latlng);
 
-  void addMapPolyline(MapPolyline polyline);
+  /// Add a polyline to map
+  ///
+  /// Return map polyline object that can be used for removing polyline latter
+  Object addPolyline(MapPolylinePanda polyline);
+
+  /// Remove a polyline from map
+  /// [polyline] is returned from [addPolyline]
+  void removePolyline(Object polyline);
 
   /// Focus current location `currentLcoation` and move current lcoation indicator
   /// If `currentLcoation` is null then handling to find out current location
@@ -67,4 +78,6 @@ abstract class PandaMapController extends ChangeNotifier
 
   void zoomIn();
   void zoomOut();
+
+  void changeCurrentLocationStyle(MapCurrentLocationStyle style);
 }
