@@ -42,14 +42,20 @@ class MapService {
       }
     }
 
+    Position? prevPosition;
     Geolocator.getPositionStream(
       locationSettings: LocationSettings(
         accuracy: LocationAccuracy.bestForNavigation,
       ),
     ).listen(
       (Position position) {
-        _locationChangedController
-            .add(MapCurrentLocation.fromPosition(position));
+        if (position.latitude != prevPosition?.latitude ||
+            position.longitude != prevPosition?.longitude ||
+            position.heading != prevPosition?.heading) {
+          _locationChangedController
+              .add(MapCurrentLocation.fromPosition(position));
+          prevPosition = position;
+        }
       },
     );
   }

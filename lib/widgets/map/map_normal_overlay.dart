@@ -7,6 +7,7 @@ import 'package:panda_map/panda_map.dart';
 import 'package:panda_map/utils/constants.dart';
 import 'package:panda_map/widgets/map/current_location_button.dart';
 import 'package:panda_map/widgets/map/route_locations.dart';
+import 'package:panda_map/widgets/map/zoom_buttons.dart';
 import 'package:panda_map/widgets/map_action_button.dart';
 
 class MapNormalOverlay extends StatelessWidget {
@@ -54,15 +55,7 @@ class MapNormalOverlay extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              MapActionButton(
-                icon: Icons.add,
-                onPressed: controller.zoomOut,
-              ),
-              const SizedBox(height: 8),
-              MapActionButton(
-                icon: Icons.remove,
-                onPressed: controller.zoomIn,
-              ),
+              ZoomButtons(controller: controller),
               const SizedBox(height: 8),
               if (PandaMap.uiOptions.showCurrentPositionBtn)
                 CurrentLocationButton(controller: controller),
