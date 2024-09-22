@@ -52,6 +52,14 @@ abstract class PandaMapPlugin {
     await routingController.init();
   }
 
+  void dispose() async {
+    assert(_controller != null,
+        'PandaMapPlugin has not been setup. Use PandaMap.setPlugin to setup first');
+    _controller?.dispose();
+    _routingController?.dispose();
+    _service = null;
+  }
+
   Widget buildMap(BuildContext context, PandaMapController controller);
 
   Widget buildMapOverlay(BuildContext context, MapMode mode) {

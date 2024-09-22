@@ -29,4 +29,9 @@ abstract class PandaMap {
     await mapService.init();
     await plugin.init();
   }
+
+  static Future<void> dispose() async {
+    assert(_plugin != null, 'You need setPlugin first');
+    plugin.dispose();
+  }
 }

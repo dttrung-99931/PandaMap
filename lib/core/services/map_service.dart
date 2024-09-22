@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
+import 'package:panda_map/utils/constants.dart';
 
 class MapService {
   MapService._();
@@ -23,10 +24,8 @@ class MapService {
     bool locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!locationServiceEnabled) {
       locationServiceEnabled = await Geolocator.openLocationSettings();
-      if (!locationServiceEnabled) {
-        log('Error location service');
-        return;
-      }
+      log('Need to enable location service');
+      return;
     }
 
     bool locationPermissionGranted = _isLocationPermissionEnabled(
@@ -44,8 +43,9 @@ class MapService {
 
     Position? prevPosition;
     Geolocator.getPositionStream(
-      locationSettings: LocationSettings(
+      locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.bestForNavigation,
+        distanceFilter: Constants.minDistanceChangeInMetters,
       ),
     ).listen(
       (Position position) {
