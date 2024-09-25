@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:panda_map/core/models/map_bounding_box.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
 import 'package:panda_map/core/models/map_current_location_style.dart';
 import 'package:panda_map/core/models/map_lat_lng.dart';
@@ -77,7 +78,16 @@ abstract class PandaMapController extends ChangeNotifier
   Future<void> focusLocation(MapLocation location, {bool animate = true});
 
   void zoomIn();
+
   void zoomOut();
 
   void changeCurrentLocationStyle(MapCurrentLocationStyle style);
+
+  void lookAtArea(MapBoundingBox area);
+
+  void lookAtAreaInsideRectangle({
+    required MapBoundingBox area,
+    required Offset topLeftRect,
+    required Size rectSize,
+  });
 }
