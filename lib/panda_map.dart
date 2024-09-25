@@ -16,6 +16,8 @@ abstract class PandaMap {
     return _plugin!;
   }
 
+  static bool get isInitilized => _plugin != null;
+
   static PandaMapController get controller => plugin.controller;
   static PandaRoutingController get routingController =>
       plugin.routingController;
@@ -33,5 +35,6 @@ abstract class PandaMap {
   static Future<void> dispose() async {
     assert(_plugin != null, 'You need setPlugin first');
     plugin.dispose();
+    _plugin = null;
   }
 }
