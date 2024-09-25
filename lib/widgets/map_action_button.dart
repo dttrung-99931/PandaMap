@@ -9,19 +9,23 @@ class MapActionButton extends StatelessWidget {
     required this.onPressed,
     required this.icon,
     this.isVisible = true,
+    this.size = 24,
   }) : super(key: key);
   final Function() onPressed;
   final IconData icon;
   final bool isVisible;
+  final double size;
   @override
   Widget build(BuildContext context) {
     return OpacityButton(
       onTap: onPressed,
-      child: isVisible ? CardIcon(
-        icon,
-        size: 24,
-        padding: const EdgeInsets.all(8),
-      ) : const SizedBox.shrink(),
+      child: isVisible
+          ? CardIcon(
+              icon,
+              size: size,
+              padding: const EdgeInsets.all(8),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

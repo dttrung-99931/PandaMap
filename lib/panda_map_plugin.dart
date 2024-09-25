@@ -40,14 +40,15 @@ abstract class PandaMapPlugin {
 
   PandaRoutingController createRoutingController(
     PandaMapController mapController,
+    MapAPIService service,
   );
 
   MapAPIService createService();
 
   Future<void> init() async {
     _controller = createController();
-    _routingController = createRoutingController(_controller!);
     _service = createService();
+    _routingController = createRoutingController(_controller!, _service!);
     await controller.init(options);
     await routingController.init();
   }
