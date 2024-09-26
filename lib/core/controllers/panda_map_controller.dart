@@ -10,6 +10,7 @@ import 'package:panda_map/core/models/map_mode.dart';
 import 'package:panda_map/core/models/map_polyline.dart';
 import 'package:panda_map/core/services/map_service.dart';
 import 'package:panda_map/panda_map_options.dart';
+import 'package:panda_map/utils/constants.dart';
 import 'package:panda_map/widgets/disposable_mixin.dart';
 
 import 'loading_handle_mixin.dart';
@@ -75,11 +76,19 @@ abstract class PandaMapController extends ChangeNotifier
     bool animate = true,
   });
 
-  Future<void> focusLocation(MapLocation location, {bool animate = true});
+  Future<void> focusLocation(
+    MapLocation location, {
+    bool animate = true,
+    Duration animationDuration = Constants.animationDuration,
+    double bowFactor = 1,
+  });
 
   void zoomIn();
 
   void zoomOut();
+
+  /// Set zoom level to [zoomLevel]
+  void zoom(double zoomLevel);
 
   void changeCurrentLocationStyle(MapCurrentLocationStyle style);
 
