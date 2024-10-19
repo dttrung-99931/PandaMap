@@ -9,10 +9,17 @@ class MapRoute {
   final List<MapAddressLocation> locations;
   final List<MapMoveStep> moveSteps;
   final MapBoundingBox boundingBox;
+  final int lengthInMeters;
+  final int durationInMinutes;
+
+  String get lengthInKm => '${(lengthInMeters / 1000).toStringAsFixed(1)}km';
+
   MapRoute({
     required this.polyline,
     required this.locations,
     required this.moveSteps,
     required this.boundingBox,
+    required this.lengthInMeters,
+    required this.durationInMinutes,
   });
 }
