@@ -1,8 +1,15 @@
 import 'package:flutter/foundation.dart';
+import 'package:panda_map/core/models/map_current_location.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/models/map_move_step.dart';
 import 'package:panda_map/core/models/map_route.dart';
 import 'package:panda_map/widgets/disposable_mixin.dart';
+
+enum PandaRoutingStatus {
+  previewRoute,
+  navigating,
+  noRouting,
+}
 
 abstract class PandaRoutingController extends ChangeNotifier
     with DisposableMixin {
@@ -10,6 +17,9 @@ abstract class PandaRoutingController extends ChangeNotifier
   MapRoute? get currentRoute;
   MapRoute? get previewRoute;
   MapMoveStep get currentMoveStep;
+  PandaRoutingStatus get status;
+  Stream<MapCurrentLocation> get movingLocationStream;
+
   Future<void> init();
   Future<MapRoute?> findRoute({
     required MapLocation start,
