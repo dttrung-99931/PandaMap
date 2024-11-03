@@ -15,6 +15,7 @@ abstract class PandaRoutingController extends ChangeNotifier
     with DisposableMixin {
   bool get isNavigating => currentRoute != null;
   MapRoute? get currentRoute;
+  int get remainingRouteLengthInMetter;
   MapRoute? get previewRoute;
   MapMoveStep get currentMoveStep;
   PandaRoutingStatus get status;

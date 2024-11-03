@@ -11,6 +11,8 @@ class MapRoute {
   final MapBoundingBox boundingBox;
   final int lengthInMeters;
   final int durationInMinutes;
+  // Ref to sdk route
+  final dynamic sdkRoute;
 
   String get lengthInKm => '${(lengthInMeters / 1000).toStringAsFixed(1)}km';
 
@@ -21,5 +23,6 @@ class MapRoute {
     required this.boundingBox,
     required this.lengthInMeters,
     required this.durationInMinutes,
+    required this.sdkRoute,
   });
 }

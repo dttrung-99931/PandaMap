@@ -19,7 +19,8 @@ class PandaMapListener extends StatefulWidget {
   final Widget child;
   final Function(MapRoute route)? onNavigationStart;
   final Function(MapCurrentLocation location)? onLocationChanged;
-  final Function(MapCurrentLocation location)? onMoving;
+  final Function(MapCurrentLocation location, MapRoute currentRoute,
+      int remainingRouteLength)? onMoving;
 
   @override
   State<PandaMapListener> createState() => _PandaMapListenerState();
@@ -50,7 +51,11 @@ class _PandaMapListenerState extends State<PandaMapListener>
   void _listenOnMoving() {
     addSubscription(routingController.movingLocationStream.listen(
       (MapCurrentLocation event) {
-        widget.onMoving?.call(event);
+        widget.onMoving?.call(
+          event,
+          routingController.currentRoute!,
+          routingController.remainingRouteLengthInMetter,
+        );
       },
     ));
   }
