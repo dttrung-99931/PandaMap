@@ -26,7 +26,7 @@ abstract class PandaMapController extends ChangeNotifier
 
   final ValueNotifier<MapMode> mode = ValueNotifier(MapMode.normal);
 
-  Stream<MapCurrentLocation> get locationChangedStream =>
+  late Stream<MapCurrentLocation> locationChangedStream =
       mapService.onLocationChanged;
 
   void changeMode(MapMode mode) {

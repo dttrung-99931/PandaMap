@@ -9,3 +9,8 @@ class Constants {
 }
 
 const emptyWidget = SizedBox.shrink();
+
+enum PandaMapError {
+  errorFindingRoute,
+  routeNotFound,
+}

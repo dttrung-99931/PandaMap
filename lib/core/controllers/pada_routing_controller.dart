@@ -19,6 +19,9 @@ abstract class PandaRoutingController extends ChangeNotifier
   MapRoute? get previewRoute;
   MapMoveStep get currentMoveStep;
   PandaRoutingStatus get status;
+
+  // Stream for listening lcoation moved. Locaiton changed != moving,
+  // location may change but not moved when distance is not large enough
   Stream<MapCurrentLocation> get movingLocationStream;
 
   Future<void> init();
