@@ -7,6 +7,7 @@ import 'package:panda_map/core/controllers/loading_handle_mixin.dart';
 import 'package:panda_map/core/controllers/pada_routing_controller.dart';
 import 'package:panda_map/core/controllers/panda_map_controller.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
+import 'package:panda_map/core/models/map_current_location_style.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/models/map_route.dart';
 import 'package:panda_map/panda_map.dart';
@@ -40,11 +41,6 @@ class MapTrackingController extends ChangeNotifier with LoadingHandleMixin {
   late Stream<MapCurrentLocation> _prevLocaChangedStream;
 
   Future<void> startTracking(MapTrackingOptions options) async {
-    /// Change map's current location stream to [_currentLocationStream]
-    /// So that current location will be updated via
-    /// _currentLocationStream (updateCurrentLocation) instead of GPS
-    _prevLocaChangedStream = mapController.locationChangedStream;
-    mapController.locationChangedStream = _currentLocationStream.stream;
     await load(() async {
       await _initRoute(options);
     });
@@ -53,6 +49,8 @@ class MapTrackingController extends ChangeNotifier with LoadingHandleMixin {
   void stopTracking() {
     /// Revert current location stream when nav stopped
     mapController.locationChangedStream = _prevLocaChangedStream;
+    routingController.navigatingLocationStyle =
+        MapCurrentLocationStyle.navigation;
   }
 
   Future<void> _initRoute(MapTrackingOptions options) async {
@@ -70,6 +68,15 @@ class MapTrackingController extends ChangeNotifier with LoadingHandleMixin {
     if (route != null) {
       await routingController.showRoute(route);
       await Future.delayed(const Duration(milliseconds: 1200));
+
+      /// Change map's current location stream to [_currentLocationStream]
+      /// So that current location will be updated via
+      /// _currentLocationStream (updateCurrentLocation) instead of GPS
+      _prevLocaChangedStream = mapController.locationChangedStream;
+      mapController.locationChangedStream = _currentLocationStream.stream;
+      routingController.navigatingLocationStyle =
+          MapCurrentLocationStyle.tracking;
+
       await routingController.startNavigation(route);
     } else {
       log('Route not found');

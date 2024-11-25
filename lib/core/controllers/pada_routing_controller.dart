@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:panda_map/core/models/map_current_location.dart';
+import 'package:panda_map/core/models/map_current_location_style.dart';
 import 'package:panda_map/core/models/map_location.dart';
 import 'package:panda_map/core/models/map_move_step.dart';
 import 'package:panda_map/core/models/map_route.dart';
@@ -8,7 +9,7 @@ import 'package:panda_map/widgets/disposable_mixin.dart';
 enum PandaRoutingStatus {
   previewRoute,
   navigating,
-  noRouting,
+  noRouting;
 }
 
 abstract class PandaRoutingController extends ChangeNotifier
@@ -19,6 +20,8 @@ abstract class PandaRoutingController extends ChangeNotifier
   MapRoute? get previewRoute;
   MapMoveStep get currentMoveStep;
   PandaRoutingStatus get status;
+  MapCurrentLocationStyle navigatingLocationStyle =
+      MapCurrentLocationStyle.navigation;
 
   // Stream for listening lcoation moved. Locaiton changed != moving,
   // location may change but not moved when distance is not large enough
